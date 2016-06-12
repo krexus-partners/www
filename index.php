@@ -207,12 +207,28 @@
           <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp"></section>
         </div>
         <div class="mdl-layout__tab-panel" id="changelog">
-          <section class="section--center mdl-grid mdl-grid--no-spacing">
-            <div class="mdl-cell mdl-cell--12-col">
-              <pre><p id="changelogtext"></p></pre>
-            </div>  
-          </section>
+          <?php
+            $changelog="<pre>".file_get_contents("https://dl.dropboxusercontent.com/u/12469927/krexus_Changelog.txt")."</pre>";
+            $pieces = explode("====================", $changelog);
+            $dateBase=1;
+            $changeBase=2;
+            foreach ($pieces as $key => $value) {
+              if ($key==$dateBase) {
+                echo "<section class=\"section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp\">
+                  <div class=\"mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--6-col-phone\">
+                  <div class=\"mdl-card__supporting-text\"> ";
+                echo "<h4>".$value."</h4>";
+                $dateBase=$dateBase+2;
+              } else if ($key==$changeBase) {
+                echo "<pre>".$value."</pre>";
+                echo "</div></div></section>";
+                $changeBase=$changeBase+2;
+              }
+            }
+          ?>
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp"></section>
         </div>
+
         <div class="mdl-layout__tab-panel" id="faq">
           <section class="section--center mdl-grid mdl-grid--no-spacing">
             <div class="mdl-cell mdl-cell--12-col">
@@ -239,6 +255,7 @@
           </section>
           <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp"></section>
         </div>
+
         <footer class="mdl-mega-footer">
           <div class="mdl-mega-footer--middle-section">
             <div class="mdl-mega-footer--drop-down-section">
@@ -295,13 +312,6 @@
       </main>
     </div>
     <script type="text/javascript">
-      $.ajax({
-          url : "https://dl.dropboxusercontent.com/u/12469927/krexus_Changelog.txt",
-          dataType: "text",
-          success : function (result) {
-             $("#changelogtext").html(result);
-          }
-      });
         (function() {
           'use strict';
           var dialogButton = document.querySelector('.review-dialog-button');
