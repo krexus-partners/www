@@ -233,22 +233,26 @@
           <section class="section--center mdl-grid mdl-grid--no-spacing">
             <div class="mdl-cell mdl-cell--12-col">
               <p id="faqtext">
+                <center>
+                  <h2>F.A.Q.</h2><br>
+                  a.k.a questions you shouldn't repost
+                </center>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp"></section>
                 <?php 
-                  file_put_contents("krexusFAQdoc.zip", fopen("https://docs.google.com/document/d/1hMX-lQ2iUiNsrhszMIlp0Wwj1tSHWvsaEQ_yT4pD_eE/export?format=zip", 'r'));
-                  $file = 'krexusFAQdoc.zip';
-                  // get the absolute path to $file
-                  $path = pathinfo(realpath($file), PATHINFO_DIRNAME);
-
-                  $zip = new ZipArchive;
-                  $res = $zip->open($file);
-                  if ($res === TRUE) {
-                    // extract it to the path we determined above
-                    $zip->extractTo($path);
-                    $zip->close();
-                  } else {
-                    echo "There seems to be an error at the moment. Please try again later.";
+                  $faqString = file_get_contents("https://docs.google.com/document/d/199w9RPTXX8CgzHV2opjGBdwLuXA-IjY9GaaWE3Ppu5w/export?format=txt");
+                  $QandA = explode("=======", $faqString);
+                  $noOfQA = count($QandA);
+                  foreach ($QandA as $key => $value) {
+                    if ( $key < $noOfQA-1) {
+                      $segment = explode(">>>>>>>", $value);
+                      echo "<section class=\"section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp\">
+                        <div class=\"mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--6-col-phone\">
+                        <div class=\"mdl-card__supporting-text\"> ";
+                      echo "<h4>".$segment[0]."</h4>";
+                      echo $segment[1];
+                      echo "</div></div></section>";
+                    }
                   }
-                  include("KrexusF.A.Q..html");
                 ?>
               </p>
             </div>  
@@ -341,8 +345,6 @@
               $('.mdl-layout__tab-panel').css("margin-top","0px");
           }
       });
-    </script>
-    <script>
       $('section').addClass('animated fadeIn');
     </script>
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
