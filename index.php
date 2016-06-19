@@ -74,24 +74,13 @@
           </a>
         </div>
       </header>
-      <dialog id="review-dialog" class="mdl-dialog">
-        <h3 class="mdl-dialog__title">KREXUS Video Review</h3>
-        <div class="mdl-dialog__content">
-          <p id="dialogBody"></p>
-        </div>
-        <div class="mdl-dialog__actions">
-          <button type="button" class="mdl-button">Close</button>
-        </div>
-      </dialog>
       <main class="mdl-layout__content">
         <div class="mdl-layout__tab-panel is-active" id="overview">
-          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-            <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-bg-yt mdl-color-text--white review-dialog-button">
-              <i class="material-icons" style="color: #D32F2F;">play_circle_filled</i>
-            </header>
-            <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-card mdl-shadow--2dp mdl-card-features">
+              <iframe class="mdl-card__title mdl-card--expand" id='ytplayer' type='text/html' src='https://www.youtube.com/embed/xsab701mAnc' frameborder='0'>
+              </iframe>
               <div class="mdl-card__supporting-text">
-                <h4>Features</h4>
                 Krexus was born out of a simple necessity. The latest releases of stock Android (namely lollipop and marshmallow) were pretty close to my idea of a perfect android ROM, yet missing some elements, which are meant to be included in stock Android, at least for me. Starting from a clean AOSP environment, only specific features and fixes are included, which are personally tested, with one goal in mind. To create a stock like android ROM, "as it should be".
               </div>
             </div>
@@ -315,25 +304,6 @@
         </footer>
       </main>
     </div>
-    <script type="text/javascript">
-        (function() {
-          'use strict';
-          var dialogButton = document.querySelector('.review-dialog-button');
-          var dialog = document.querySelector('#review-dialog');
-          if (! dialog.showModal) {
-            dialogPolyfill.registerDialog(dialog);
-          }
-          dialogButton.addEventListener('click', function() {
-             dialog.showModal();
-             document.getElementById("dialogBody").innerHTML = "<iframe id='ytplayer' type='text/html' height='450' src='https://www.youtube.com/embed/xsab701mAnc' frameborder='0'/>";
-          });
-          dialog.querySelector('button:not([disabled])')
-          .addEventListener('click', function() {
-            document.getElementById("dialogBody").innerHTML = "";
-            dialog.close();
-          });
-        }());    
-    </script>
     <script>
       var num = $("header").height() - 64;
       $('.mdl-layout').bind('scroll', function () {
